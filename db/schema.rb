@@ -51,30 +51,30 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_02_135449) do
     t.integer "status", default: 1, null: false
     t.citext "email", null: false
     t.string "password_hash"
-    t.string "full_name"
-    t.date "birth_date"
+    t.string "full_name", null: false
+    t.date "birth_date", null: false
     t.string "permament_address"
-    t.string "phone"
-    t.string "member_code"
+    t.string "phone", null: false
+    t.string "member_code", null: false
     t.string "role"
     t.index ["email"], name: "index_accounts_on_email", unique: true, where: "(status = ANY (ARRAY[1, 2]))"
     t.index ["member_code"], name: "index_accounts_on_member_code", unique: true
   end
 
   create_table "awards", force: :cascade do |t|
-    t.string "name"
-    t.integer "award_type"
+    t.string "name", null: false
+    t.integer "award_type", null: false
     t.string "image"
     t.integer "dependent_award_id"
-    t.integer "minimum_service_years"
-    t.integer "minimum_age"
+    t.integer "minimum_service_years", default: 0
+    t.integer "minimum_age", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "districts", force: :cascade do |t|
-    t.string "name"
-    t.string "code"
+    t.string "name", null: false
+    t.string "code", null: false
     t.bigint "region_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -83,10 +83,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_02_135449) do
   end
 
   create_table "fire_departments", force: :cascade do |t|
-    t.string "name"
-    t.string "code"
+    t.string "name", null: false
+    t.string "code", null: false
     t.bigint "district_id", null: false
-    t.string "address"
+    t.string "address", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["code"], name: "index_fire_departments_on_code", unique: true
@@ -94,11 +94,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_02_135449) do
   end
 
   create_table "memberships", force: :cascade do |t|
-    t.date "start_date"
+    t.date "start_date", null: false
     t.bigint "fire_department_id", null: false
     t.bigint "account_id", null: false
-    t.integer "role"
-    t.integer "status"
+    t.integer "role", default: 0, null: false
+    t.integer "status", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["account_id"], name: "index_memberships_on_account_id"
@@ -106,8 +106,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_02_135449) do
   end
 
   create_table "regions", force: :cascade do |t|
-    t.string "name"
-    t.string "code"
+    t.string "name", null: false
+    t.string "code", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["code"], name: "index_regions_on_code", unique: true

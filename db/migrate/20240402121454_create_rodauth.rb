@@ -7,11 +7,11 @@ class CreateRodauth < ActiveRecord::Migration[7.1]
       t.citext :email, null: false
       t.index :email, unique: true, where: "status IN (1, 2)"
       t.string :password_hash
-      t.string :full_name
-      t.date :birth_date
+      t.string :full_name, null: false
+      t.date :birth_date, null: false
       t.string :permament_address
-      t.string :phone
-      t.string :member_code
+      t.string :phone, null: false
+      t.string :member_code, null: false
       t.index :member_code, unique: true
       t.string :role
     end
