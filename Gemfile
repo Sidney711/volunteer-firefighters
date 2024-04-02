@@ -18,6 +18,7 @@ gem "pg", "~> 1.5.6"
 gem "rodauth-rails", "~> 1.13.0"
 gem 'jsonapi-resources', "~> 0.10.7"
 gem 'rails-patterns', "~> 0.11.0"
+gem 'validates_timeliness', '~> 7.0.0.beta2'
 
 group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]

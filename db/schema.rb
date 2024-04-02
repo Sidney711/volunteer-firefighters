@@ -94,8 +94,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_02_135449) do
   end
 
   create_table "memberships", force: :cascade do |t|
-    t.date "start_date", null: false
-    t.bigint "fire_department_id", null: false
+    t.date "start_date"
+    t.bigint "fire_department_id"
     t.bigint "account_id", null: false
     t.integer "role", default: 0, null: false
     t.integer "status", default: 0, null: false
