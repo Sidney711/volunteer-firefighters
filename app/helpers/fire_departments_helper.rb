@@ -1,0 +1,2 @@
+module FireDepartmentsHelper
+end

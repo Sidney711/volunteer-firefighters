@@ -1,0 +1,37 @@
+<div id="<%= dom_id award %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Name:</strong>
+    <%= award.name %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Award type:</strong>
+    <%= award.award_type %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Image:</strong>
+    <%= award.image %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Dependent award:</strong>
+    <%= award.dependent_award_id %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Minimum service years:</strong>
+    <%= award.minimum_service_years %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Minimum age:</strong>
+    <%= award.minimum_age %>
+  </p>
+
+  <% if action_name != "show" %>
+    <%= link_to "Show this award", award, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to "Edit this award", edit_award_path(award), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
+</div>
