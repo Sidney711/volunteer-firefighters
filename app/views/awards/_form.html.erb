@@ -18,27 +18,27 @@
 
   <div class="my-5">
     <%= form.label :award_type %>
-    <%= form.number_field :award_type, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.select :award_type, Award.award_types.keys.map { |key| [key.humanize, key] }, { include_blank: true }, { class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" } %>
   </div>
 
   <div class="my-5">
     <%= form.label :image %>
-    <%= form.text_field :image, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.file_field :image, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
   <div class="my-5">
     <%= form.label :dependent_award_id %>
-    <%= form.number_field :dependent_award_id, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.select :dependent_award_id, options_for_select(Award.all.map{ |award| [award.name, award.id] }), { include_blank: true }, { class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" } %>
   </div>
 
   <div class="my-5">
     <%= form.label :minimum_service_years %>
-    <%= form.number_field :minimum_service_years, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.number_field :minimum_service_years, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", min: 0 %>
   </div>
 
   <div class="my-5">
     <%= form.label :minimum_age %>
-    <%= form.number_field :minimum_age, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.number_field :minimum_age, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", min: 0 %>
   </div>
 
   <div class="inline">

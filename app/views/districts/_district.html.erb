@@ -11,7 +11,7 @@
 
   <p class="my-5">
     <strong class="block font-medium mb-1">Region:</strong>
-    <%= district.region_id %>
+    <%= Region.find(district.region_id).name %>
   </p>
 
   <% if action_name != "show" %>

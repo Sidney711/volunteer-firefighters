@@ -1,6 +1,7 @@
 class Award < ApplicationRecord
   has_many :account_awards
   has_many :accounts, through: :account_awards
+  has_one_attached :image
 
   enum award_type: { recognition: 1, medal: 2, order_award: 3 }
 
@@ -9,7 +10,6 @@ class Award < ApplicationRecord
   validates :minimum_service_years, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :minimum_age, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :dependent_award_id, allow_nil: true, numericality: { only_integer: true }
-  validates :image, length: { maximum: 255}, allow_nil: true
   validate :validate_dependent_award_exists, if: -> { dependent_award_id.present? }
 
   private

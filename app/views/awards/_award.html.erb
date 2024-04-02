@@ -11,7 +11,11 @@
 
   <p class="my-5">
     <strong class="block font-medium mb-1">Image:</strong>
-    <%= award.image %>
+    <% if award.image.attached? %>
+      <%= link_to "Download Image", url_for(award.image), download: "award_image", class: "underline" %>
+    <% else %>
+      <span class="text-gray-500">No image available</span>
+    <% end %>
   </p>
 
   <p class="my-5">
