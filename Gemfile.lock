@@ -334,6 +334,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  bcrypt
   bootsnap
   database_cleaner (~> 2.0.2)
   debug
