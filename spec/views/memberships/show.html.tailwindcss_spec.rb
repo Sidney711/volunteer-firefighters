@@ -4,9 +4,9 @@ RSpec.describe "memberships/show", type: :view do
   before(:each) do
     assign(:membership, Membership.create!(
       fire_department: nil,
-      member: nil,
-      role: "Role",
-      status: "Status"
+      account: nil,
+      role: 2,
+      status: 3
     ))
   end
 
@@ -14,7 +14,7 @@ RSpec.describe "memberships/show", type: :view do
     render
     expect(rendered).to match(//)
     expect(rendered).to match(//)
-    expect(rendered).to match(/Role/)
-    expect(rendered).to match(/Status/)
+    expect(rendered).to match(/2/)
+    expect(rendered).to match(/3/)
   end
 end

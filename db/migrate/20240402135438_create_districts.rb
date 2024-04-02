@@ -7,5 +7,6 @@ class CreateDistricts < ActiveRecord::Migration[7.1]
 
       t.timestamps
     end
+    add_index :districts, :code, unique: true
   end
 end

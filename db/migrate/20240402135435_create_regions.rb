@@ -6,5 +6,6 @@ class CreateRegions < ActiveRecord::Migration[7.1]
 
       t.timestamps
     end
+    add_index :regions, :code, unique: true
   end
 end

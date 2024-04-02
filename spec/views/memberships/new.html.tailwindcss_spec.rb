@@ -4,9 +4,9 @@ RSpec.describe "memberships/new", type: :view do
   before(:each) do
     assign(:membership, Membership.new(
       fire_department: nil,
-      member: nil,
-      role: "MyString",
-      status: "MyString"
+      account: nil,
+      role: 1,
+      status: 1
     ))
   end
 
@@ -17,7 +17,7 @@ RSpec.describe "memberships/new", type: :view do
 
       assert_select "input[name=?]", "membership[fire_department_id]"
 
-      assert_select "input[name=?]", "membership[member_id]"
+      assert_select "input[name=?]", "membership[account_id]"
 
       assert_select "input[name=?]", "membership[role]"
 

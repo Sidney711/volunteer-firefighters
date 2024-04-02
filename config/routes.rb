@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   resources :awards
   resources :memberships
-  resources :members
   resources :fire_departments
   resources :districts
   resources :regions

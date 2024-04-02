@@ -4,9 +4,9 @@ RSpec.describe "memberships/edit", type: :view do
   let(:membership) {
     Membership.create!(
       fire_department: nil,
-      member: nil,
-      role: "MyString",
-      status: "MyString"
+      account: nil,
+      role: 1,
+      status: 1
     )
   }
 
@@ -21,7 +21,7 @@ RSpec.describe "memberships/edit", type: :view do
 
       assert_select "input[name=?]", "membership[fire_department_id]"
 
-      assert_select "input[name=?]", "membership[member_id]"
+      assert_select "input[name=?]", "membership[account_id]"
 
       assert_select "input[name=?]", "membership[role]"
 

@@ -8,5 +8,6 @@ class CreateFireDepartments < ActiveRecord::Migration[7.1]
 
       t.timestamps
     end
+    add_index :fire_departments, :code, unique: true
   end
 end

@@ -5,15 +5,15 @@ RSpec.describe "memberships/index", type: :view do
     assign(:memberships, [
       Membership.create!(
         fire_department: nil,
-        member: nil,
-        role: "Role",
-        status: "Status"
+        account: nil,
+        role: 2,
+        status: 3
       ),
       Membership.create!(
         fire_department: nil,
-        member: nil,
-        role: "Role",
-        status: "Status"
+        account: nil,
+        role: 2,
+        status: 3
       )
     ])
   end
@@ -23,7 +23,7 @@ RSpec.describe "memberships/index", type: :view do
     cell_selector = Rails::VERSION::STRING >= '7' ? 'div>p' : 'tr>td'
     assert_select cell_selector, text: Regexp.new(nil.to_s), count: 2
     assert_select cell_selector, text: Regexp.new(nil.to_s), count: 2
-    assert_select cell_selector, text: Regexp.new("Role".to_s), count: 2
-    assert_select cell_selector, text: Regexp.new("Status".to_s), count: 2
+    assert_select cell_selector, text: Regexp.new(2.to_s), count: 2
+    assert_select cell_selector, text: Regexp.new(3.to_s), count: 2
   end
 end
