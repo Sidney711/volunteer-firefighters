@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   patch "members/:id" => "accounts#update"
   delete "members/:id" => "accounts#destroy"
   get "new_member" => "accounts#new", as: :new_account
+  post "members" => "accounts#create"
 
   # Defines the root path route ("/")
   root "fire_departments#index"
