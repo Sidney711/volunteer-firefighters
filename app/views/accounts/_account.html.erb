@@ -1,0 +1,43 @@
+<div id="<%= dom_id account %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Full Name:</strong>
+    <%= account.full_name %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Member Code:</strong>
+    <%= account.member_code %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Role:</strong>
+    <%= account.role %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Birth Date:</strong>
+    <%= account.birth_date.strftime("%d %B %Y") %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Email:</strong>
+    <%= mail_to account.email, account.email, class: "underline" %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Phone:</strong>
+    <%= account.phone %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Permanent Address:</strong>
+    <%= account.permament_address %>
+  </p>
+
+  <%# Zobrazit odkazy na akce, pokud nejste na stránce show %>
+  <% if action_name != "show" %>
+    <%= link_to "Show this member", account, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to "Edit this member", edit_account_path(account), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
+</div>
