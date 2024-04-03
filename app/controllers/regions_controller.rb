@@ -1,15 +1,6 @@
 class RegionsController < ApplicationController
   before_action :authenticate
-  before_action :set_region, only: %i[ show edit update destroy ]
-
-  # GET /regions
-  def index
-    @regions = Region.all
-  end
-
-  # GET /regions/1
-  def show
-  end
+  load_and_authorize_resource
 
   # GET /regions/new
   def new

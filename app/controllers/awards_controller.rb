@@ -1,15 +1,6 @@
 class AwardsController < ApplicationController
   before_action :authenticate
-  before_action :set_award, only: %i[ show edit update destroy ]
-
-  # GET /awards
-  def index
-    @awards = Award.all
-  end
-
-  # GET /awards/1
-  def show
-  end
+  load_and_authorize_resource
 
   # GET /awards/new
   def new

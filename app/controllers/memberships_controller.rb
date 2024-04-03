@@ -1,15 +1,6 @@
 class MembershipsController < ApplicationController
   before_action :authenticate
-  before_action :set_membership, only: %i[ show edit update destroy ]
-
-  # GET /memberships
-  def index
-    @memberships = Membership.all
-  end
-
-  # GET /memberships/1
-  def show
-  end
+  load_and_authorize_resource
 
   # GET /memberships/new
   def new

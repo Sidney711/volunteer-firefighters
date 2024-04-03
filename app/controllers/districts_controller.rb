@@ -1,15 +1,6 @@
 class DistrictsController < ApplicationController
   before_action :authenticate
-  before_action :set_district, only: %i[ show edit update destroy ]
-
-  # GET /districts
-  def index
-    @districts = District.all
-  end
-
-  # GET /districts/1
-  def show
-  end
+  load_and_authorize_resource
 
   # GET /districts/new
   def new

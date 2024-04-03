@@ -1,21 +1,48 @@
 <nav class="flex flex-wrap items-center justify-between py-3 text-gray-700 bg-white container mx-auto px-4" data-controller="nav">
   <div class="flex items-center mr-6 flex-no-shrink">
-
-      <span class="sr-only">RailsTest</span>
-      <%= link_to "Sdružení dobrovolných hasičů ČR", root_path, class: "text-xl font-semibold tracking-tight" %>
+    <span class="sr-only">RailsTest</span>
+    <%= link_to "Sdružení dobrovolných hasičů ČR", root_path, class: "text-xl font-semibold tracking-tight" %>
   </div>
   <div class="items-center w-full text-center lg:flex-1 lg:flex lg:text-left pt-2 lg:pt-0 hidden" data-nav-target="menu">
     <div class="">
     </div>
     <div class="items-center block w-full mt-2 text-center lg:flex lg:flex-row lg:flex-1 lg:mt-0 lg:text-left lg:justify-end">
-      <div>
-        <%= link_to "Fire departments", fire_departments_path, class: "p-3 hover:bg-gray-50 transition ease duration-300 rounded-lg text-center focus:bg-gray-100 lg:inline-block block" %>
-        <%= link_to "Members", awards_path, class: "p-3 hover:bg-gray-50 transition ease duration-300 rounded-lg text-center focus:bg-gray-100 lg:inline-block block" %>
-        <%= link_to "Memberships", memberships_path, class: "p-3 hover:bg-gray-50 transition ease duration-300 rounded-lg text-center focus:bg-gray-100 lg:inline-block block" %>
-        <%= link_to "Awards", awards_path, class: "p-3 hover:bg-gray-50 transition ease duration-300 rounded-lg text-center focus:bg-gray-100 lg:inline-block block" %>
-        <%= link_to "Districts", districts_path, class: "p-3 hover:bg-gray-50 transition ease duration-300 rounded-lg text-center focus:bg-gray-100 lg:inline-block block" %>
-        <%= link_to "Regions", regions_path, class: "p-3 hover:bg-gray-50 transition ease duration-300 rounded-lg text-center focus:bg-gray-100 lg:inline-block block" %>
+      <%= link_to "Fire departments", fire_departments_path, class: "p-3 hover:bg-gray-50 transition ease duration-300 rounded-lg text-center focus:bg-gray-100 lg:inline-block block" %>
+      <%= link_to "Members", awards_path, class: "p-3 hover:bg-gray-50 transition ease duration-300 rounded-lg text-center focus:bg-gray-100 lg:inline-block block" %>
+      <%= link_to "Memberships", memberships_path, class: "p-3 hover:bg-gray-50 transition ease duration-300 rounded-lg text-center focus:bg-gray-100 lg:inline-block block" %>
+      <%= link_to "Awards", awards_path, class: "p-3 hover:bg-gray-50 transition ease duration-300 rounded-lg text-center focus:bg-gray-100 lg:inline-block block" %>
+      <%= link_to "Districts", districts_path, class: "p-3 hover:bg-gray-50 transition ease duration-300 rounded-lg text-center focus:bg-gray-100 lg:inline-block block" %>
+      <%= link_to "Regions", regions_path, class: "p-3 hover:bg-gray-50 transition ease duration-300 rounded-lg text-center focus:bg-gray-100 lg:inline-block block" %>
+      <!-- Uživatelské menu -->
+      <div class="relative">
+        <button class="flex items-center p-3 hover:bg-gray-50 transition ease duration-300 rounded-lg focus:bg-gray-100">
+          <%= current_account.email %>
+          <svg class="fill-current h-4 w-4 ml-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/></svg>
+        </button>
+        <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-xl z-20 hidden" data-dropdown>
+          <%= link_to 'Profil', rodauth.change_login_path, class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" %>
+          <%= link_to 'Změnit heslo', rodauth.change_password_path, class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" %>
+          <%= link_to 'Odhlásit se', '#', onclick: 'document.getElementById("logout-form").submit(); return false;', class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" %>
+
+          <%= form_with url: rodauth.logout_path, method: :post, id: 'logout-form', class: "hidden" do |form| %>
+            <% if rodauth.features.include?(:active_sessions) %>
+              <%= form.hidden_field rodauth.global_logout_param, value: '1' %>
+            <% end %>
+          <% end %>
+
+        </div>
+      </div>
     </div>
   </div>
-  </div>
 </nav>
+
+<script>
+    // Přidáváme jednoduchý JavaScript pro otevření/zavření dropdown menu
+    document.addEventListener('click', function (e) {
+        var button = e.target.closest('button');
+        if (!button) return;
+        var dropdown = button.nextElementSibling;
+        if (!dropdown) return;
+        dropdown.classList.toggle('hidden');
+    });
+</script>

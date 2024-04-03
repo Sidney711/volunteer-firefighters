@@ -1,15 +1,6 @@
 class FireDepartmentsController < ApplicationController
   before_action :authenticate
-  before_action :set_fire_department, only: %i[ show edit update destroy ]
-
-  # GET /fire_departments
-  def index
-    @fire_departments = FireDepartment.all
-  end
-
-  # GET /fire_departments/1
-  def show
-  end
+  load_and_authorize_resource
 
   # GET /fire_departments/new
   def new
@@ -47,13 +38,13 @@ class FireDepartmentsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_fire_department
-      @fire_department = FireDepartment.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_fire_department
+    @fire_department = FireDepartment.find(params[:id])
+  end
 
-    # Only allow a list of trusted parameters through.
-    def fire_department_params
-      params.require(:fire_department).permit(:name, :code, :district_id, :address)
-    end
+  # Only allow a list of trusted parameters through.
+  def fire_department_params
+    params.require(:fire_department).permit(:name, :code, :district_id, :address)
+  end
 end
