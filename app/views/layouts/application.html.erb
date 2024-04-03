@@ -1,22 +1,24 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>SDH - application</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+<head>
+  <title>SDH - application</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
 
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
-  </head>
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  <%= javascript_importmap_tags %>
+</head>
 
-  <body class="font-sans font-normal leading-normal text-gray-800 bg-white flex flex-col min-h-screen">
-  <header>
+<body class="font-sans font-normal leading-normal text-gray-800 bg-white flex flex-col min-h-screen">
+<header>
+  <% if rodauth.logged_in? %>
     <%= render "shared/navbar" %>
-  </header>
-  <main class="container mx-auto mt-14 px-5 flex">
-    <%= content_for?(:content) ? yield(:content) : yield %>
-  </main>
-  </body>
+  <% end %>
+</header>
+<main class="container mx-auto mt-14 px-5 flex">
+  <%= content_for?(:content) ? yield(:content) : yield %>
+</main>
+</body>
 </html>

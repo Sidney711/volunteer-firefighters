@@ -14,6 +14,7 @@ class CreateRodauth < ActiveRecord::Migration[7.1]
       t.string :member_code, null: false
       t.index :member_code, unique: true
       t.string :role
+      t.boolean :is_super_admin, null: false, default: false
     end
 
     # Used by the password reset feature

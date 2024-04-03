@@ -1,4 +1,5 @@
 class FireDepartmentsController < ApplicationController
+  before_action :authenticate
   before_action :set_fire_department, only: %i[ show edit update destroy ]
 
   # GET /fire_departments

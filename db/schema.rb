@@ -57,6 +57,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_02_152637) do
     t.string "phone", null: false
     t.string "member_code", null: false
     t.string "role"
+    t.boolean "is_super_admin", default: false, null: false
     t.index ["email"], name: "index_accounts_on_email", unique: true, where: "(status = ANY (ARRAY[1, 2]))"
     t.index ["member_code"], name: "index_accounts_on_member_code", unique: true
   end
