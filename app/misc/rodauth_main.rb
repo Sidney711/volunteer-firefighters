@@ -45,7 +45,7 @@ class RodauthMain < Rodauth::Rails::Auth
     account_password_hash_column :password_hash
 
     # Set password when creating account instead of when verifying.
-    verify_account_set_password? false
+    verify_account_set_password? true
 
     # Change some default param keys.
     login_param "email"
@@ -71,8 +71,7 @@ class RodauthMain < Rodauth::Rails::Auth
       RodauthMailer.reset_password(self.class.configuration_name, account_id, reset_password_key_value)
     end
     create_verify_account_email do
-      RodauthMailer.verify_account(self.class.configuration_name, account_id, verify_account_key_value).deliver_later
-      verify_account_key_value
+      RodauthMailer.verify_account(self.class.configuration_name, account_id, verify_account_key_value)
     end
     create_verify_login_change_email do |_login|
       RodauthMailer.verify_login_change(self.class.configuration_name, account_id, verify_login_change_key_value)
@@ -143,6 +142,20 @@ class RodauthMain < Rodauth::Rails::Auth
     # before_create_account do
     #   throw_error_status(422, "name", "must be present") if param("name").empty?
     # end
+
+    before_create_account do
+      # Získání přístupu k parametrům odeslaným formulářem
+      # Příklad: přidání vlastních atributů do `account` hash, který bude uložen
+
+      # Příklad: Uložení vlastních atributů do instance proměnné, která je přístupná v `create_account` bloku
+      account[:full_name] = request.params["full_name"]
+      account[:birth_date] = request.params["birth_date"]
+      account[:permament_address] = request.params["permanent_address"]
+      account[:phone] = request.params["phone"]
+      account[:member_code] = request.params["member_code"]
+      account[:role] = request.params["role"]
+      account[:is_super_admin] = request.params["is_super_admin"] == "1"
+    end
 
     # Perform additional actions after the account is created.
     # after_create_account do
