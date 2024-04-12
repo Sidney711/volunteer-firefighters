@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   get "members/:id/edit" => "accounts#edit", as: :edit_account
   # patch "members/:id" => "accounts#update"
   # delete "members/:id" => "accounts#destroy"
-  #get "new_member" => "accounts#new", as: :new_account
+  get "new_member" => "accounts#new", as: :new_account
   # post "members" => "accounts#create"
   #post '/new_member', to: 'accounts#create', as: :new_member
 

@@ -66,6 +66,11 @@ class RodauthMain < Rodauth::Rails::Auth
 
     # Redirect to the app from login and registration pages if already logged in.
     # already_logged_in { redirect login_redirect }
+    already_logged_in do
+      if request.path_info == '/login'
+        redirect '/'
+      end
+    end
 
     # ==> Emails
     # Use a custom mailer for delivering authentication emails.
