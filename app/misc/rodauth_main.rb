@@ -18,6 +18,8 @@ class RodauthMain < Rodauth::Rails::Auth
     # Avoid DB query that checks accounts table schema at boot time.
     convert_token_id_to_integer? true
 
+    create_account_route nil
+
     # Change prefix of table and foreign key column names from default "account"
     # accounts_table :users
     # verify_account_table :user_verification_keys
