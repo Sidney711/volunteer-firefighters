@@ -11,6 +11,16 @@ class RodauthMain < Rodauth::Rails::Auth
     # See the Rodauth documentation for the list of available config options:
     # http://rodauth.jeremyevans.net/documentation.html
 
+
+    # TODO: Check if it works
+    before_login do
+      unless account[:is_super_admin] || Membership.where(account_id: account[:id], role: 1).count > 0
+        set_field_error(:login, "You do not have permission to log in.")
+        flash[:notice] = "You do not have permission to log in."
+        throw_error_status(403, :login, "You do not have permission to log in.")
+      end
+    end
+
     # ==> General
     # Initialize Sequel and have it reuse Active Record's database connection.
     db Sequel.postgres(extensions: :activerecord_connection, keep_reference: false)
@@ -62,7 +72,7 @@ class RodauthMain < Rodauth::Rails::Auth
     # reset_password_autologin? true
 
     # Delete the account record when the user has closed their account.
-    # delete_account_on_close? true
+    delete_account_on_close? true
 
     # Redirect to the app from login and registration pages if already logged in.
     # already_logged_in { redirect login_redirect }

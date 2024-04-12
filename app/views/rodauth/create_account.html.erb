@@ -1,3 +1,5 @@
+<% rodauth.require_account %>
+
 <%= form_with url: rodauth.create_account_path, method: :post, data: { turbo: false } do |form| %>
   <div class="my-5">
     <%= form.label :email %>
