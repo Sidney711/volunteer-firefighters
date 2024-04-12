@@ -6,7 +6,7 @@ class RodauthMain < Rodauth::Rails::Auth
     enable :create_account, :verify_account, :verify_account_grace_period,
       :login, :logout, :remember,
       :reset_password, :change_password, :change_password_notify,
-      :change_login, :verify_login_change, :close_account, :internal_request
+      :change_login, :verify_login_change, :close_account
 
     # See the Rodauth documentation for the list of available config options:
     # http://rodauth.jeremyevans.net/documentation.html
@@ -18,7 +18,7 @@ class RodauthMain < Rodauth::Rails::Auth
     # Avoid DB query that checks accounts table schema at boot time.
     convert_token_id_to_integer? true
 
-    create_account_route nil
+    #create_account_route nil
 
     # Change prefix of table and foreign key column names from default "account"
     # accounts_table :users
@@ -146,16 +146,11 @@ class RodauthMain < Rodauth::Rails::Auth
     # end
 
     before_create_account do
-      # Získání přístupu k parametrům odeslaným formulářem
-      # Příklad: přidání vlastních atributů do `account` hash, který bude uložen
-
-      # Příklad: Uložení vlastních atributů do instance proměnné, která je přístupná v `create_account` bloku
       account[:full_name] = request.params["full_name"]
       account[:birth_date] = request.params["birth_date"]
       account[:permament_address] = request.params["permanent_address"]
       account[:phone] = request.params["phone"]
       account[:member_code] = request.params["member_code"]
-      account[:role] = request.params["role"]
       account[:is_super_admin] = request.params["is_super_admin"] == "1"
     end
 
@@ -182,9 +177,15 @@ class RodauthMain < Rodauth::Rails::Auth
     # Ensure requiring login follows login route changes.
     require_login_redirect { login_path }
 
+    after_create_account do
+      super()
+
+      request.redirect '/members'
+    end
+
     # ==> Deadlines
     # Change default deadlines for some actions.
-    # verify_account_grace_period 3.days.to_i
+    verify_account_grace_period 0
     # reset_password_deadline_interval Hash[hours: 6]
     # verify_login_change_deadline_interval Hash[days: 2]
     # remember_deadline_interval Hash[days: 30]

@@ -11,5 +11,4 @@ class Account < ApplicationRecord
   validates :permament_address, length: { maximum: 255 }, allow_nil: true
   validates :phone, presence: true, length: { maximum: 20 }, format: { with: /\A\+?\d+\z/ }
   validates :member_code, presence: true, length: { maximum: 50 }, uniqueness: true
-  validates :role, length: { maximum: 100 }, allow_nil: true
 end

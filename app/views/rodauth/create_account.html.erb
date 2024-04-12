@@ -1,33 +1,39 @@
-<%= form_with url: rodauth.create_account_path, method: :post, data: { turbo: false }, class: "w-full max-w-sm" do |form| %>
-  <div class="mb-6">
-    <%= form.label "login", rodauth.login_label, class: "block text-sm font-semibold" %>
-    <%= form.email_field rodauth.login_param, value: params[rodauth.login_param], id: "login", autocomplete: "email", required: true, class: "mt-2 text-sm w-full px-3 py-2 border rounded-md disable-dark:bg-gray-900 disable-dark:text-gray-100 disable-dark:focus:bg-gray-800 #{rodauth.field_error(rodauth.login_param) ? "border-red-600 focus:ring-red-600 focus:border-red-600 disable-dark:border-red-400 disable-dark:focus:ring-red-400" : "border-gray-300 disable-dark:border-gray-700 disable-dark:focus:border-emerald-400 disable-dark:focus:ring-emerald-400" }", aria: ({ invalid: true, describedby: "login_error_message" } if rodauth.field_error(rodauth.login_param)) %>
-    <%= content_tag(:span, rodauth.field_error(rodauth.login_param), class: "block mt-1 text-red-600 text-xs disable-dark:text-red-400", id: "login_error_message") if rodauth.field_error(rodauth.login_param) %>
+<%= form_with url: rodauth.create_account_path, method: :post, data: { turbo: false } do |form| %>
+  <div class="my-5">
+    <%= form.label :email %>
+    <%= form.email_field :email, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
-  <% if rodauth.require_login_confirmation? %>
-    <div class="mb-6">
-      <%= form.label "login-confirm", rodauth.login_confirm_label, class: "block text-sm font-semibold" %>
-      <%= form.email_field rodauth.login_confirm_param, value: params[rodauth.login_confirm_param], id: "login-confirm", autocomplete: "email", required: true, class: "mt-2 text-sm w-full px-3 py-2 border rounded-md disable-dark:bg-gray-900 disable-dark:text-gray-100 disable-dark:focus:bg-gray-800 #{rodauth.field_error(rodauth.login_confirm_param) ? "border-red-600 focus:ring-red-600 focus:border-red-600 disable-dark:border-red-400 disable-dark:focus:ring-red-400" : "border-gray-300 disable-dark:border-gray-700 disable-dark:focus:border-emerald-400 disable-dark:focus:ring-emerald-400" }", aria: ({ invalid: true, describedby: "login-confirm_error_message" } if rodauth.field_error(rodauth.login_confirm_param)) %>
-      <%= content_tag(:span, rodauth.field_error(rodauth.login_confirm_param), class: "block mt-1 text-red-600 text-xs disable-dark:text-red-400", id: "login-confirm_error_message") if rodauth.field_error(rodauth.login_confirm_param) %>
-    </div>
-  <% end %>
+  <div class="my-5">
+    <%= form.label :full_name %>
+    <%= form.text_field :full_name, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
 
-  <% if rodauth.create_account_set_password? %>
-    <div class="mb-6">
-      <%= form.label "password", rodauth.password_label, class: "block text-sm font-semibold" %>
-      <%= form.password_field rodauth.password_param, value: "", id: "password", autocomplete: rodauth.password_field_autocomplete_value, required: true, class: "mt-2 text-sm w-full px-3 py-2 border rounded-md disable-dark:bg-gray-900 disable-dark:text-gray-100 disable-dark:focus:bg-gray-800 #{rodauth.field_error(rodauth.password_param) ? "border-red-600 focus:ring-red-600 focus:border-red-600 disable-dark:border-red-400 disable-dark:focus:ring-red-400" : "border-gray-300 disable-dark:border-gray-700 disable-dark:focus:border-emerald-400 disable-dark:focus:ring-emerald-400" }", aria: ({ invalid: true, describedby: "password_error_message" } if rodauth.field_error(rodauth.password_param)) %>
-      <%= content_tag(:span, rodauth.field_error(rodauth.password_param), class: "block mt-1 text-red-600 text-xs disable-dark:text-red-400", id: "password_error_message") if rodauth.field_error(rodauth.password_param) %>
-    </div>
+  <div class="my-5">
+    <%= form.label :birth_date %>
+    <%= form.date_field :birth_date, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
 
-    <% if rodauth.require_password_confirmation? %>
-      <div class="mb-6">
-        <%= form.label "password-confirm", rodauth.password_confirm_label, class: "block text-sm font-semibold" %>
-        <%= form.password_field rodauth.password_confirm_param, value: "", id: "password-confirm", autocomplete: "new-password", required: true, class: "mt-2 text-sm w-full px-3 py-2 border rounded-md disable-dark:bg-gray-900 disable-dark:text-gray-100 disable-dark:focus:bg-gray-800 #{rodauth.field_error(rodauth.password_confirm_param) ? "border-red-600 focus:ring-red-600 focus:border-red-600 disable-dark:border-red-400 disable-dark:focus:ring-red-400" : "border-gray-300 disable-dark:border-gray-700 disable-dark:focus:border-emerald-400 disable-dark:focus:ring-emerald-400" }", aria: ({ invalid: true, describedby: "password-confirm_error_message" } if rodauth.field_error(rodauth.password_confirm_param)) %>
-        <%= content_tag(:span, rodauth.field_error(rodauth.password_confirm_param), class: "block mt-1 text-red-600 text-xs disable-dark:text-red-400", id: "password-confirm_error_message") if rodauth.field_error(rodauth.password_confirm_param) %>
-      </div>
-    <% end %>
-  <% end %>
+  <div class="my-5">
+    <%= form.label :permament_address %>
+    <%= form.text_field :permament_address, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
 
-  <%= form.submit rodauth.create_account_button, class: "w-full px-8 py-3 cursor-pointer font-semibold text-sm rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600 disable-dark:bg-emerald-400 disable-dark:hover:bg-emerald-500 disable-dark:text-gray-900 disable-dark:focus:ring-emerald-400 disable-dark:focus:ring-offset-current" %>
+  <div class="my-5">
+    <%= form.label :phone %>
+    <%= form.text_field :phone, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :member_code %>
+    <%= form.text_field :member_code, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :is_super_admin %>
+    <%= form.check_box :is_super_admin, class: "shadow border rounded-md border-gray-200 outline-none px-3 py-2 mt-2" %>
+  </div>
+
+
+<%= form.submit rodauth.create_account_button, class: "w-full px-8 py-3 cursor-pointer font-semibold text-sm rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600 disable-dark:bg-emerald-400 disable-dark:hover:bg-emerald-500 disable-dark:text-gray-900 disable-dark:focus:ring-emerald-400 disable-dark:focus:ring-offset-current" %>
 <% end %>
