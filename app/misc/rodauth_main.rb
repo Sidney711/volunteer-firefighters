@@ -161,6 +161,22 @@ class RodauthMain < Rodauth::Rails::Auth
     # end
 
     before_create_account do
+      account_instance = Account.new(
+        full_name: request.params["full_name"],
+        birth_date: request.params["birth_date"],
+        permament_address: request.params["permament_address"],
+        phone: request.params["phone"],
+        member_code: request.params["member_code"],
+        is_super_admin: false
+      )
+
+      unless account_instance.valid?
+        account_instance.errors.each do |error|
+          set_error_flash "#{error.attribute.capitalize} #{error.message}"
+        end
+        throw_error_status(422, 'account', 'Account creation failed') if account_instance.errors.any?
+      end
+
       account[:full_name] = request.params["full_name"]
       account[:birth_date] = request.params["birth_date"]
       account[:permament_address] = request.params["permament_address"]

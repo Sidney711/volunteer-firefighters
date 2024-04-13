@@ -8,4 +8,15 @@ class Membership < ApplicationRecord
   validates :start_date, timeliness: { type: :date }
   validates :role, presence: true, inclusion: { in: roles.keys }
   validates :status, presence: true, inclusion: { in: statuses.keys }
+  validate :one_active_membership_per_user
+
+  private
+
+  def one_active_membership_per_user
+    if new_record? || status_changed?
+      if Membership.where(account_id: account_id, status: status).exists?
+        errors.add(:base, 'A member can only have one active membership.')
+      end
+    end
+  end
 end

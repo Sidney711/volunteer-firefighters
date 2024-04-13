@@ -1,6 +1,12 @@
 <% rodauth.require_account %>
 
 <%= form_with url: rodauth.create_account_path, method: :post, data: { turbo: false } do |form| %>
+  <% flash.each do |type, message| %>
+    <div class="alert alert-<%= type %>">
+      <%= message %>
+    </div>
+  <% end %>
+
   <div class="my-5">
     <%= form.label :email %>
     <%= form.email_field :email, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
