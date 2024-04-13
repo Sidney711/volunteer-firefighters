@@ -18,9 +18,13 @@
 
   <div class="my-5">
     <%= form.label :fire_department_id %>
+    <% if rodauth.rails_account.is_super_admin %>
+      <%= form.collection_select :fire_department_id, FireDepartment.all, :id, :name, {}, {class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full"} %>
+    <% else %>
     <% admin_departments = FireDepartment.joins(:memberships).where(memberships: { account_id: rodauth.rails_account.id, role: 1 }) %>
     <%= form.collection_select :fire_department_id, admin_departments, :id, :name, {}, {class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full"} %>
-  </div>
+  <% end %>
+      </div>
 
 
   <div class="my-5">
