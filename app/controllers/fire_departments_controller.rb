@@ -1,5 +1,4 @@
 class FireDepartmentsController < ApplicationController
-  before_action :authenticate
   load_and_authorize_resource
 
   # GET /fire_departments/new

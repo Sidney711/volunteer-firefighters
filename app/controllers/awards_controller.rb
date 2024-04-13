@@ -1,5 +1,4 @@
 class AwardsController < ApplicationController
-  before_action :authenticate
   load_and_authorize_resource
 
   # GET /awards/new

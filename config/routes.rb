@@ -21,4 +21,8 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "accounts#index"
+
+  namespace :api do
+    resources :fire_departments, only: [:index]
+  end
 end

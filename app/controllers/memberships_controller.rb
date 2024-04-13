@@ -1,5 +1,4 @@
 class MembershipsController < ApplicationController
-  before_action :authenticate
   load_and_authorize_resource
 
   # GET /memberships/new

@@ -1,5 +1,4 @@
 class RegionsController < ApplicationController
-  before_action :authenticate
   load_and_authorize_resource
 
   # GET /regions/new

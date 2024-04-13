@@ -10,7 +10,9 @@ class RodauthApp < Rodauth::Rails::App
 
     r.rodauth # route rodauth requests
 
-    rodauth.require_account
+    unless r.path.start_with?("/api")
+      rodauth.require_account
+    end
 
     # ==> Authenticating requests
     # Call `rodauth.require_account` for requests that you want to
