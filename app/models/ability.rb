@@ -13,7 +13,7 @@ class Ability
       can :manage, Award
       can :manage, Membership
       can :manage, Account
-    else
+    else if account.is_admin
       can :read, FireDepartment
       can :read, Account
       can :read, Region
@@ -21,5 +21,6 @@ class Ability
       can :read, District
       can :read, Award
     end
-  end
+    end
+    end
 end

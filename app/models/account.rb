@@ -11,4 +11,17 @@ class Account < ApplicationRecord
   validates :permament_address, length: { maximum: 255 }, allow_nil: true
   validates :phone, presence: true, length: { maximum: 20 }, format: { with: /\A\+?\d+\z/ }
   validates :member_code, presence: true, length: { maximum: 50 }, uniqueness: true
+
+
+  def full_info
+    "#{full_name}, #{birth_date}, #{member_code}"
+  end
+
+  def is_admin
+    if Membership.where(account_id: self.id, role: 1).count > 0
+      true
+    else
+      false
+    end
+  end
 end

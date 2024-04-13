@@ -5,7 +5,9 @@
 
   <div class="flex justify-between items-center">
     <h1 class="font-bold text-4xl">Awards</h1>
+    <% if can? :create, Award %>
     <%= link_to "New award", new_award_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+    <% end %>
   </div>
 
   <div id="awards" class="min-w-full">

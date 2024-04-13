@@ -5,7 +5,9 @@
 
   <div class="flex justify-between items-center">
     <h1 class="font-bold text-4xl">Fire departments</h1>
+    <% if can? :create, Region %>
     <%= link_to "New fire department", new_fire_department_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+    <% end %>
   </div>
 
   <div id="fire_departments" class="min-w-full">

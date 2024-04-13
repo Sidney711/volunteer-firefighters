@@ -20,5 +20,5 @@ Rails.application.routes.draw do
   #post '/new_member', to: 'accounts#create', as: :new_member
 
   # Defines the root path route ("/")
-  root "fire_departments#index"
+  root "accounts#index"
 end
