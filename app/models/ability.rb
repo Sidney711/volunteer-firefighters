@@ -4,6 +4,8 @@ class Ability
   include CanCan::Ability
 
   def initialize(account)
+    cannot :manage, :all
+
     account ||= Account.new
 
     if account.is_super_admin?
@@ -15,12 +17,19 @@ class Ability
       can :manage, Account
     else if account.is_admin
       can :read, FireDepartment
-      can :read, Account
       can :read, Region
-      can :read, Membership
       can :read, District
       can :read, Award
+
+      admin_memberships = account.memberships.where(role: 1)
+      admin_departments = admin_memberships.map(&:fire_department)
+
+      admin_memberships.each do |membership|
+        can :manage, Account, memberships: { id: membership.id }
+      end
+
+      can :manage, Membership, fire_department: { id: admin_departments.map(&:id) }
     end
     end
-    end
+  end
 end

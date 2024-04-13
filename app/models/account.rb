@@ -3,6 +3,8 @@ class Account < ApplicationRecord
 
   has_many :account_awards
   has_many :awards, through: :account_awards
+  has_many :memberships
+  has_many :fire_departments, through: :memberships
 
   enum :status, unverified: 1, verified: 2, closed: 3
 
