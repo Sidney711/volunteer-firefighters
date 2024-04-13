@@ -12,24 +12,35 @@ class MembershipsController < ApplicationController
   end
 
   # POST /memberships
+  # POST /memberships
   def create
     @membership = Membership.new(membership_params)
 
-    if @membership.save
-      redirect_to @membership, notice: "Membership was successfully created."
+    if rodauth.rails_account.memberships.where(fire_department_id: @membership.fire_department_id, role: 1).exists?
+      if @membership.save
+        redirect_to @membership, notice: "Membership was successfully created."
+      else
+        render :new, status: :unprocessable_entity
+      end
     else
-      render :new, status: :unprocessable_entity
+      redirect_to memberships_url, alert: "You do not have permission to create memberships for this fire department."
     end
   end
 
+
   # PATCH/PUT /memberships/1
   def update
-    if @membership.update(membership_params)
-      redirect_to @membership, notice: "Membership was successfully updated.", status: :see_other
+    if rodauth.rails_account.memberships.where(fire_department_id: membership_params[:fire_department_id], role: 1).exists?
+      if @membership.update(membership_params)
+        redirect_to @membership, notice: "Membership was successfully updated.", status: :see_other
+      else
+        render :edit, status: :unprocessable_entity
+      end
     else
-      render :edit, status: :unprocessable_entity
+      redirect_to memberships_url, alert: "You do not have permission to update memberships for this fire department."
     end
   end
+
 
   # DELETE /memberships/1
   def destroy

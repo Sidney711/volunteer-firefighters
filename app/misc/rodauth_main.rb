@@ -166,7 +166,7 @@ class RodauthMain < Rodauth::Rails::Auth
       account[:permament_address] = request.params["permanent_address"]
       account[:phone] = request.params["phone"]
       account[:member_code] = request.params["member_code"]
-      account[:is_super_admin] = request.params["is_super_admin"] == "1"
+      account[:is_super_admin] = false
     end
 
     # Perform additional actions after the account is created.

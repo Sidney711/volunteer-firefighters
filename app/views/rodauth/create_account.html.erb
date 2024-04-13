@@ -30,12 +30,5 @@
     <%= form.label :member_code %>
     <%= form.text_field :member_code, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
-
-  <div class="my-5">
-    <%= form.label :is_super_admin %>
-    <%= form.check_box :is_super_admin, class: "shadow border rounded-md border-gray-200 outline-none px-3 py-2 mt-2" %>
-  </div>
-
-
 <%= form.submit rodauth.create_account_button, class: "w-full px-8 py-3 cursor-pointer font-semibold text-sm rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600 disable-dark:bg-emerald-400 disable-dark:hover:bg-emerald-500 disable-dark:text-gray-900 disable-dark:focus:ring-emerald-400 disable-dark:focus:ring-offset-current" %>
 <% end %>

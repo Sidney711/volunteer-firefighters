@@ -14,7 +14,6 @@ class Account < ApplicationRecord
   validates :phone, presence: true, length: { maximum: 20 }, format: { with: /\A\+?\d+\z/ }
   validates :member_code, presence: true, length: { maximum: 50 }, uniqueness: true
 
-
   def full_info
     "#{full_name}, #{birth_date}, #{member_code}"
   end
