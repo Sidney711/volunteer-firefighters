@@ -163,7 +163,7 @@ class RodauthMain < Rodauth::Rails::Auth
     before_create_account do
       account[:full_name] = request.params["full_name"]
       account[:birth_date] = request.params["birth_date"]
-      account[:permament_address] = request.params["permanent_address"]
+      account[:permament_address] = request.params["permament_address"]
       account[:phone] = request.params["phone"]
       account[:member_code] = request.params["member_code"]
       account[:is_super_admin] = false

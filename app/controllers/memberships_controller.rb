@@ -16,7 +16,7 @@ class MembershipsController < ApplicationController
   def create
     @membership = Membership.new(membership_params)
 
-    if rodauth.rails_account.memberships.where(fire_department_id: @membership.fire_department_id, role: 1).exists?
+    if rodauth.rails_account.memberships.where(fire_department_id: @membership.fire_department_id, role: 1).exists? || rodauth.rails_account.is_super_admin
       if @membership.save
         redirect_to @membership, notice: "Membership was successfully created."
       else
@@ -30,7 +30,7 @@ class MembershipsController < ApplicationController
 
   # PATCH/PUT /memberships/1
   def update
-    if rodauth.rails_account.memberships.where(fire_department_id: membership_params[:fire_department_id], role: 1).exists?
+    if rodauth.rails_account.memberships.where(fire_department_id: membership_params[:fire_department_id], role: 1).exists? || rodauth.rails_account.is_super_admin
       if @membership.update(membership_params)
         redirect_to @membership, notice: "Membership was successfully updated.", status: :see_other
       else

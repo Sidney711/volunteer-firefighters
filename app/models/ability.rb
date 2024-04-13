@@ -25,7 +25,7 @@ class Ability
       admin_departments = admin_memberships.map(&:fire_department)
 
       admin_memberships.each do |membership|
-        can :manage, Account, memberships: { fire_department: membership.fire_department }
+        can [:read, :update], Account, memberships: { fire_department: membership.fire_department }
       end
 
       can :manage, Membership, fire_department: { id: admin_departments.map(&:id) }
