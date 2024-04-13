@@ -31,10 +31,13 @@ class FireDepartmentsController < ApplicationController
     end
   end
 
-  # DELETE /fire_departments/1
   def destroy
-    @fire_department.destroy!
-    redirect_to fire_departments_url, notice: "Fire department was successfully destroyed.", status: :see_other
+    begin
+      @fire_department.destroy!
+      redirect_to fire_departments_url, notice: "Fire department was successfully destroyed.", status: :see_other
+    rescue ActiveRecord::DeleteRestrictionError
+      redirect_to fire_departments_url, alert: "Fire department cannot be destroyed while members are still associated."
+    end
   end
 
   private

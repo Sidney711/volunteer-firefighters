@@ -1,9 +1,9 @@
 class Account < ApplicationRecord
   include Rodauth::Model(RodauthMain)
 
-  has_many :account_awards
+  has_many :account_awards, dependent: :destroy
   has_many :awards, through: :account_awards
-  has_many :memberships
+  has_many :memberships, dependent: :destroy
   has_many :fire_departments, through: :memberships
 
   enum :status, unverified: 1, verified: 2, closed: 3

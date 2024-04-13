@@ -31,10 +31,13 @@ class DistrictsController < ApplicationController
     end
   end
 
-  # DELETE /districts/1
   def destroy
-    @district.destroy!
-    redirect_to districts_url, notice: "District was successfully destroyed.", status: :see_other
+    begin
+      @district.destroy!
+      redirect_to districts_url, notice: "District was successfully destroyed.", status: :see_other
+    rescue ActiveRecord::DeleteRestrictionError
+      redirect_to districts_url, alert: "District cannot be destroyed while fire departments are still associated."
+    end
   end
 
   private

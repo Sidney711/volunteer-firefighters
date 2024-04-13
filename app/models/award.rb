@@ -1,5 +1,5 @@
 class Award < ApplicationRecord
-  has_many :account_awards
+  has_many :account_awards, dependent: :restrict_with_exception
   has_many :accounts, through: :account_awards
   has_one_attached :image
 

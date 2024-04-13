@@ -1,6 +1,6 @@
 class FireDepartment < ApplicationRecord
   belongs_to :district
-  has_many :memberships
+  has_many :memberships, dependent: :restrict_with_exception
 
   validates :name, presence: true, length: { maximum: 255 }
   validates :code, presence: true, length: { maximum: 50 }, uniqueness: true

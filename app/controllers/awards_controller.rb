@@ -31,10 +31,13 @@ class AwardsController < ApplicationController
     end
   end
 
-  # DELETE /awards/1
   def destroy
-    @award.destroy!
-    redirect_to awards_url, notice: "Award was successfully destroyed.", status: :see_other
+    begin
+      @award.destroy!
+      redirect_to awards_url, notice: "Award was successfully destroyed.", status: :see_other
+    rescue ActiveRecord::DeleteRestrictionError
+      redirect_to awards_url, alert: "Award cannot be destroyed while members are still associated."
+    end
   end
 
   private

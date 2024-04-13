@@ -33,8 +33,12 @@ class RegionsController < ApplicationController
 
   # DELETE /regions/1
   def destroy
-    @region.destroy!
-    redirect_to regions_url, notice: "Region was successfully destroyed.", status: :see_other
+    begin
+      @region.destroy!
+      redirect_to regions_url, notice: "Region was successfully destroyed.", status: :see_other
+    rescue ActiveRecord::DeleteRestrictionError
+      redirect_to regions_url, alert: "Region cannot be destroyed while districts are still associated."
+    end
   end
 
   private
