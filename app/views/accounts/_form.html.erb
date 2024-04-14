@@ -1,8 +1,7 @@
-<%= form_with(model: account, class: "contents") do |form| %>
+<%= simple_form_for(account, html: { data: { controller: 'nested-form', nested_form_wrapper_selector_value: '.nested-form-wrapper' } }) do |f| %>
   <% if account.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
       <h2><%= pluralize(account.errors.count, "error") %> prohibited this account from being saved:</h2>
-
       <ul>
         <% account.errors.each do |error| %>
           <li><%= error.full_message %></li>
@@ -11,39 +10,29 @@
     </div>
   <% end %>
 
-  <div class="my-5">
-    <%= form.label :full_name %>
-    <%= form.text_field :full_name, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :birth_date %>
-    <%= form.date_field :birth_date, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :permament_address %>
-    <%= form.text_field :permament_address, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :phone %>
-    <%= form.text_field :phone, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :member_code %>
-    <%= form.text_field :member_code, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
+  <%= f.input :full_name %>
+  <%= f.input :birth_date, as: :date %>
+  <%= f.input :permament_address %>
+  <%= f.input :phone %>
+  <%= f.input :member_code %>
 
   <% if rodauth.rails_account.is_super_admin %>
-  <div class="my-5">
-    <%= form.label :is_super_admin %>
-    <%= form.check_box :is_super_admin, class: "shadow border rounded-md border-gray-200 outline-none px-3 py-2 mt-2" %>
-  </div>
+    <%= f.input :is_super_admin %>
   <% end %>
 
-  <div class="inline">
-    <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+  <div data-nested-form-target="target" class="nested-form-wrapper">
+    <%= f.simple_fields_for :account_awards do |award_form| %>
+      <%= render 'account_award_fields', f: award_form %>
+    <% end %>
+
+    <template data-nested-form-target="template">
+      <%= f.simple_fields_for :account_awards, AccountAward.new, child_index: 'NEW_RECORD' do |award_form| %>
+        <%= render 'account_award_fields', f: award_form %>
+      <% end %>
+    </template>
+
+    <button type="button" class="rounded-lg py-2 px-2 bg-purple-600 text-white inline-block font-small cursor-pointer mt-2 mb-2" data-action="nested-form#add">Add Award</button>
   </div>
+
+  <%= f.button :submit, class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
 <% end %>
