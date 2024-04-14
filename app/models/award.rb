@@ -12,6 +12,10 @@ class Award < ApplicationRecord
   validates :dependent_award_id, allow_nil: true, numericality: { only_integer: true }
   validate :validate_dependent_award_exists, if: -> { dependent_award_id.present? }
 
+  def dependent_award
+    Award.find_by(id: dependent_award_id)
+  end
+
   private
 
   def validate_dependent_award_exists

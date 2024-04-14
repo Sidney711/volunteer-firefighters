@@ -6,6 +6,8 @@ class Account < ApplicationRecord
   has_many :memberships, dependent: :destroy
   has_many :fire_departments, through: :memberships
 
+  accepts_nested_attributes_for :account_awards, reject_if: :all_blank, allow_destroy: true
+
   enum :status, unverified: 1, verified: 2, closed: 3
 
   validates :full_name, presence: true, length: { maximum: 100 }
@@ -24,5 +26,18 @@ class Account < ApplicationRecord
     else
       false
     end
+  end
+
+  def age
+    ((Time.zone.now - birth_date.to_time) / 1.year.seconds).floor
+  end
+
+  def oldest_membership_date
+    memberships.minimum(:start_date)
+  end
+
+  def membership_duration_years
+    return 0 unless oldest_membership_date
+    ((Time.zone.now - oldest_membership_date.to_time) / 1.year.seconds).floor
   end
 end
