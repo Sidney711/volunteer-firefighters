@@ -21,6 +21,8 @@ gem 'rails-patterns', "~> 0.11.0"
 gem 'validates_timeliness', '~> 7.0.0.beta2'
 gem 'bcrypt'
 gem 'cancancan', '~> 3.5.0'
+gem "turbo-rails"
+gem 'stimulus-rails'
 
 group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
