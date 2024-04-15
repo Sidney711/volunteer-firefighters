@@ -131,11 +131,10 @@ District.all.each_with_index do |district, index|
 end
 
 accounts = Account.all
-fire_departments = FireDepartment.order(:created_at)
+fire_departments = FireDepartment.order(created_at: :asc)
 
-accounts.each do |account|
-  # Create one active membership for each account
-  fire_department = fire_departments.sample
+accounts.each_with_index do |account, index|
+  fire_department = fire_departments[index]
   Membership.create!(
     account: account,
     fire_department: fire_department,
@@ -148,9 +147,8 @@ end
 accounts = Account.all
 fire_departments = FireDepartment.order(created_at: :desc)
 
-accounts.each do |account|
-  # Create one active membership for each account
-  fire_department = fire_departments.sample
+accounts.each_with_index do |account, index|
+  fire_department = fire_departments[index]
   Membership.create!(
     account: account,
     fire_department: fire_department,
