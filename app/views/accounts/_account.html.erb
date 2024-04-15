@@ -30,6 +30,19 @@
   </p>
 
   <div class="my-5">
+    <strong class="block font-medium mb-1">Awards:</strong>
+    <% if account.awards.any? %>
+    <ul>
+      <% account.awards.each do |award| %>
+        <li><%= award.name %></li>
+      <% end %>
+    </ul>
+  <% else %>
+    <span>No awards</span>
+  <% end %>
+  </div>
+
+  <div class="my-5">
     <strong class="block font-medium mb-1">Fire Departments:</strong>
     <% if account.fire_departments.any? %>
       <ul>

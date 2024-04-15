@@ -10,11 +10,26 @@
     </div>
   <% end %>
 
+  <div class="my-5">
   <%= f.input :full_name %>
-  <%= f.input :birth_date, as: :date %>
+  </div>
+
+  <div class="my-5">
+    <%= f.label :birth_date %>
+    <%= f.date_field :birth_date %>
+  </div>
+
+  <div class="my-5">
   <%= f.input :permament_address %>
+  </div>
+
+  <div class="my-5">
   <%= f.input :phone %>
+  </div>
+
+  <div class="my-5">
   <%= f.input :member_code %>
+  </div>
 
   <% if rodauth.rails_account.is_super_admin %>
     <%= f.input :is_super_admin %>
@@ -34,5 +49,7 @@
     <button type="button" class="rounded-lg py-2 px-2 bg-purple-600 text-white inline-block font-small cursor-pointer mt-2 mb-2" data-action="nested-form#add">Add Award</button>
   </div>
 
+  <div class="my-5">
   <%= f.button :submit, class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+  </div>
 <% end %>
