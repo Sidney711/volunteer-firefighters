@@ -13,7 +13,7 @@ class Account < ApplicationRecord
   validates :full_name, presence: true, length: { maximum: 100 }
   validates :birth_date, presence: true, timeliness: { type: :date }
   validates :permament_address, length: { maximum: 255 }, allow_nil: true
-  validates :phone, presence: true, length: { maximum: 20 }, format: { with: /\A\+?\d+\z/ }
+  validates :phone, presence: true, length: { maximum: 20 }
   validates :member_code, presence: true, length: { maximum: 50 }, uniqueness: true
 
   def full_info
