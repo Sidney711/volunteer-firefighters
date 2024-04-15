@@ -40,4 +40,12 @@ class Account < ApplicationRecord
     return 0 unless oldest_membership_date
     ((Time.zone.now - oldest_membership_date.to_time) / 1.year.seconds).floor
   end
+
+  def eligible_awards
+    Award.where("minimum_service_years <= ? AND minimum_age <= ?", membership_duration_years, age)
+         .where.not(id: self.awards.select(:id)) # Vyfiltruje vyznamenání, která účet již má
+         .select do |award|
+      award.dependent_award.nil? || self.awards.include?(award.dependent_award)
+    end
+  end
 end

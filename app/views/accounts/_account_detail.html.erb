@@ -30,16 +30,21 @@
   </p>
 
   <div class="my-5">
+    <div><span class="font-medium">Age: </span><%= account.age %></div>
+    <div><span class="font-medium">Duration in SDH in years: </span><%= account.membership_duration_years %></div>
+  </div>
+
+  <div class="my-5">
     <strong class="block font-medium mb-1">Awards:</strong>
     <% if account.awards.any? %>
-    <ul>
-      <% account.awards.each do |award| %>
-        <li><%= award.name %></li>
-      <% end %>
-    </ul>
-  <% else %>
-    <span>No awards</span>
-  <% end %>
+      <ul>
+        <% account.awards.each do |award| %>
+          <li><%= award.name %></li>
+        <% end %>
+      </ul>
+    <% else %>
+      <span>No awards</span>
+    <% end %>
   </div>
 
   <div class="my-5">
@@ -62,6 +67,17 @@
       <span>No fire departments</span>
     <% end %>
   </div>
+
+  <% if account.eligible_awards.any? %>
+    <div class="my-5">
+      <h2 class="font-medium">Eligible Awards:</h2>
+      <ul>
+        <% account.eligible_awards.each do |award| %>
+          <li><%= award.name %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 
   <%# Zobrazit odkazy na akce, pokud nejste na stránce show %>
   <% if action_name != "show" %>

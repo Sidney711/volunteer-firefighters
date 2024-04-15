@@ -12,9 +12,9 @@
   <p class="my-5">
     <strong class="block font-medium mb-1">Image:</strong>
     <% if award.image.attached? %>
-      <%= link_to "Download Image", url_for(award.image), download: "award_image", class: "underline" %>
+      <%= image_tag award.image, class: "w-64 h-auto" %>
     <% else %>
-      <span class="text-gray-500">No image available</span>
+      <%= image_tag "image-not-found.png", class: "w-64 h-auto" %>
     <% end %>
   </p>
 
@@ -36,7 +36,7 @@
   <% if action_name != "show" %>
     <%= link_to "Show this award", award, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
     <% if can? :edit, Award %>
-    <%= link_to "Edit this award", edit_award_path(award), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+      <%= link_to "Edit this award", edit_award_path(award), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
     <% end %>
     <hr class="mt-6">
   <% end %>

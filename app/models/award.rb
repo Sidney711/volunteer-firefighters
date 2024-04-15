@@ -16,6 +16,18 @@ class Award < ApplicationRecord
     Award.find_by(id: dependent_award_id)
   end
 
+  def get_info
+    "#{name}, #{award_type}, Minimum years in SDH: #{minimum_service_years}, Minimum age: #{minimum_age}, Dependent award: #{get_dependent_award_name}"
+  end
+
+  def get_dependent_award_name
+    if dependent_award_id.present?
+      dependent_award.name
+    else
+      '-'
+    end
+  end
+
   private
 
   def validate_dependent_award_exists

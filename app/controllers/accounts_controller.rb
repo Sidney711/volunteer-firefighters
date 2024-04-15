@@ -19,7 +19,7 @@ class AccountsController < ApplicationController
       if @account.update(account_params)
         redirect_to @account, notice: 'Account was successfully updated.'
       else
-        render :edit
+        render :edit, alert: 'Account was not updated.'
       end
     end
   end
