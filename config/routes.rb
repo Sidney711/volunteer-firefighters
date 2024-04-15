@@ -24,5 +24,6 @@ Rails.application.routes.draw do
 
   namespace :api do
     resources :fire_departments, only: [:index]
+    resources :accounts
   end
 end
