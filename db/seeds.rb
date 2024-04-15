@@ -131,22 +131,35 @@ District.all.each_with_index do |district, index|
 end
 
 accounts = Account.all
-fire_departments = FireDepartment.all
+fire_departments = FireDepartment.order(:created_at)
 
-accounts.each_with_index do |account, index|
-  fire_department = fire_departments[index % fire_departments.size]
-  status = index.even? ? 'active' : 'archived'
-  role = index.even? ? 'member' : 'administrator'
-  start_date = index.even? ? 1.year.ago : 2.years.ago
-
+accounts.each do |account|
+  # Create one active membership for each account
+  fire_department = fire_departments.sample
   Membership.create!(
     account: account,
     fire_department: fire_department,
-    status: status,
-    role: role,
-    start_date: start_date
+    status: 'active',
+    role: Membership.roles.keys.sample,
+    start_date: 1.year.ago
   )
 end
+
+accounts = Account.all
+fire_departments = FireDepartment.order(created_at: :desc)
+
+accounts.each do |account|
+  # Create one active membership for each account
+  fire_department = fire_departments.sample
+  Membership.create!(
+    account: account,
+    fire_department: fire_department,
+    status: 'archived',
+    role: Membership.roles.keys.sample,
+    start_date: 1.year.ago
+  )
+end
+
 
 accounts = Account.all
 awards = Award.all
