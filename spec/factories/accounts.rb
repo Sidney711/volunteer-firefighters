@@ -8,5 +8,6 @@ FactoryBot.define do
     member_code { Faker::Alphanumeric.alphanumeric(number: 10, min_alpha: 1, min_numeric: 1) }
     is_super_admin { false }
     status { 2 }
+    permament_address { Faker::Address.full_address }
   end
 end

@@ -87,12 +87,16 @@ awards_data = [
 
 # Creating awards without dependencies
 awards_data.each do |award_data|
-  Award.create(
+  award = Award.create(
     name: award_data[:name],
     award_type: award_data[:award_type],
     minimum_service_years: award_data[:minimum_service_years] || 0,
     minimum_age: award_data[:minimum_age] || 0
   )
+
+  # Attach image based on award type
+  image_path = Rails.root.join("app", "assets", "images", "#{award.award_type}.jpg")
+  award.image.attach(io: File.open(image_path), filename: "#{award.award_type}.jpg") if File.exist?(image_path)
 end
 
 # Associating dependent awards
@@ -124,4 +128,22 @@ fire_departments = [
 
 District.all.each_with_index do |district, index|
   FireDepartment.create!(fire_departments[index].merge(district_id: district.id))
+end
+
+accounts = Account.all
+fire_departments = FireDepartment.all
+
+accounts.each_with_index do |account, index|
+  fire_department = fire_departments[index % fire_departments.size]
+  status = index.even? ? 'active' : 'archived'
+  role = index.even? ? 'member' : 'administrator'
+  start_date = index.even? ? 1.year.ago : 2.years.ago
+
+  Membership.create!(
+    account: account,
+    fire_department: fire_department,
+    status: status,
+    role: role,
+    start_date: start_date
+  )
 end
