@@ -2,7 +2,7 @@ class AccountsController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @q = Account.includes(:fire_departments, :awards).ransack(params[:q])
+    @q = Account.accessible_by(current_ability).includes(:fire_departments, :awards).ransack(params[:q])
     @accounts = @q.result(distinct: true)
   end
 
