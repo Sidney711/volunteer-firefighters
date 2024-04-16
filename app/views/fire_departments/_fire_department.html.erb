@@ -11,7 +11,7 @@
 
   <p class="my-5">
     <strong class="block font-medium mb-1">District:</strong>
-    <%= fire_department.district_id %>
+    <%= District.find(fire_department.district_id).name %>
   </p>
 
   <p class="my-5">

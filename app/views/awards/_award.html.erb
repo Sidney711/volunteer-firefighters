@@ -20,7 +20,11 @@
 
   <p class="my-5">
     <strong class="block font-medium mb-1">Dependent award:</strong>
-    <%= award.dependent_award_id %>
+    <% if award.dependent_award.present? %>
+      <%= award.dependent_award.name %>
+    <% else %>
+      <span class="text-gray-500">No dependent award</span>
+    <% end %>
   </p>
 
   <p class="my-5">

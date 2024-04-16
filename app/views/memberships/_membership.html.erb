@@ -6,12 +6,12 @@
 
   <p class="my-5">
     <strong class="block font-medium mb-1">Fire department:</strong>
-    <%= membership.fire_department_id %>
+    <%= FireDepartment.find(membership.fire_department_id).name %>
   </p>
 
   <p class="my-5">
     <strong class="block font-medium mb-1">Account:</strong>
-    <%= membership.account_id %>
+    <%= Account.find(membership.account_id).full_info %>
   </p>
 
   <p class="my-5">
