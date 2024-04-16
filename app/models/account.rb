@@ -16,6 +16,14 @@ class Account < ApplicationRecord
   validates :phone, presence: true, length: { maximum: 20 }
   validates :member_code, presence: true, length: { maximum: 50 }, uniqueness: true
 
+  def self.ransackable_attributes(auth_object = nil)
+    %w[full_name fire_departments_id_eq awards_id_eq] # your attributes here
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    %w[fire_departments awards]
+  end
+
   def full_info
     "#{full_name}, #{birth_date}, #{member_code}"
   end

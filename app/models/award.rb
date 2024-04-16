@@ -12,6 +12,11 @@ class Award < ApplicationRecord
   validates :dependent_award_id, allow_nil: true, numericality: { only_integer: true }
   validate :validate_dependent_award_exists, if: -> { dependent_award_id.present? }
 
+  def self.ransackable_attributes(auth_object = nil)
+    ["award_type", "created_at", "dependent_award_id", "id", "id_value", "minimum_age", "minimum_service_years", "name", "updated_at"]
+  end
+
+
   def dependent_award
     Award.find_by(id: dependent_award_id)
   end

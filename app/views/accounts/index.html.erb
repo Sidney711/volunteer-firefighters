@@ -6,10 +6,23 @@
     <p class="py-2 px-3 bg-red-50 mb-5 text-red-500 font-medium rounded-lg inline-block" id="alert"><%= alert %></p>
   <% end %>
 
-  <div class="flex justify-between items-center">
+  <div class="flex justify-between items-center mb-5">
     <h1 class="font-bold text-4xl">Members</h1>
     <%= link_to "New member", rodauth.create_account_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
   </div>
+
+  <%= search_form_for @q do |f| %>
+    <%= f.label :full_name_cont, 'Search by Full Name' %>
+    <%= f.search_field :full_name_cont %>
+
+    <%= f.label :fire_departments_id_eq, 'Filter by Fire Department' %>
+    <%= f.select :fire_departments_id_eq, FireDepartment.all.map { |fd| [fd.name, fd.id] }, include_blank: true %>
+
+    <%= f.label :awards_id_eq, 'Filter by Awards' %>
+    <%= f.select :awards_id_eq, Award.all.map { |a| [a.name, a.id] }, include_blank: true %>
+
+    <%= f.submit 'Search', class: 'rounded-lg py-2 px-1 bg-blue-600 text-white cursor-pointer' %>
+  <% end %>
 
   <div id="accounts" class="min-w-full">
     <%= render @accounts %>
