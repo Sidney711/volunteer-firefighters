@@ -51,11 +51,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_02_152637) do
     t.integer "status", default: 1, null: false
     t.citext "email", null: false
     t.string "password_hash"
-    t.string "full_name", null: false
-    t.date "birth_date", null: false
+    t.string "full_name"
+    t.date "birth_date"
     t.string "permament_address"
-    t.string "phone", null: false
-    t.string "member_code", null: false
+    t.string "phone"
+    t.string "member_code"
     t.boolean "is_super_admin", default: false, null: false
     t.index ["email"], name: "index_accounts_on_email", unique: true, where: "(status = ANY (ARRAY[1, 2]))"
     t.index ["member_code"], name: "index_accounts_on_member_code", unique: true

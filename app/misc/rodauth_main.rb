@@ -6,7 +6,7 @@ class RodauthMain < Rodauth::Rails::Auth
     enable :create_account, :verify_account, :verify_account_grace_period,
       :login, :logout, :remember,
       :reset_password, :change_password, :change_password_notify,
-      :change_login, :verify_login_change, :close_account
+      :change_login, :verify_login_change, :close_account, :internal_request
 
     # See the Rodauth documentation for the list of available config options:
     # http://rodauth.jeremyevans.net/documentation.html
@@ -161,28 +161,30 @@ class RodauthMain < Rodauth::Rails::Auth
     # end
 
     before_create_account do
-      account_instance = Account.new(
-        full_name: request.params["full_name"],
-        birth_date: request.params["birth_date"],
-        permament_address: request.params["permament_address"],
-        phone: request.params["phone"],
-        member_code: request.params["member_code"],
-        is_super_admin: false
-      )
+      unless internal_request?
+        account_instance = Account.new(
+          full_name: request.params["full_name"],
+          birth_date: request.params["birth_date"],
+          permament_address: request.params["permament_address"],
+          phone: request.params["phone"],
+          member_code: request.params["member_code"],
+          is_super_admin: false
+        )
 
-      unless account_instance.valid?
-        account_instance.errors.each do |error|
-          set_error_flash "#{error.attribute.capitalize} #{error.message}"
+        unless account_instance.valid?
+          account_instance.errors.each do |error|
+            set_error_flash "#{error.attribute.capitalize} #{error.message}"
+          end
+          throw_error_status(422, 'account', 'Account creation failed') if account_instance.errors.any?
         end
-        throw_error_status(422, 'account', 'Account creation failed') if account_instance.errors.any?
-      end
 
-      account[:full_name] = request.params["full_name"]
-      account[:birth_date] = request.params["birth_date"]
-      account[:permament_address] = request.params["permament_address"]
-      account[:phone] = request.params["phone"]
-      account[:member_code] = request.params["member_code"]
-      account[:is_super_admin] = false
+        account[:full_name] = request.params["full_name"]
+        account[:birth_date] = request.params["birth_date"]
+        account[:permament_address] = request.params["permament_address"]
+        account[:phone] = request.params["phone"]
+        account[:member_code] = request.params["member_code"]
+        account[:is_super_admin] = false
+      end
     end
 
     # Perform additional actions after the account is created.
@@ -200,7 +202,7 @@ class RodauthMain < Rodauth::Rails::Auth
     logout_redirect "/"
 
     # Redirect to wherever login redirects to after account verification.
-    verify_account_redirect { login_redirect }
+    verify_account_redirect { logout }
 
     # Redirect to login page after password reset.
     reset_password_redirect { login_path }

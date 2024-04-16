@@ -6,15 +6,14 @@ class Api::AccountsController < ApplicationController
   before_action :authenticate_token
 
   def create
-    account = Account.new(account_params)
+    RodauthApp.rodauth.create_account(login: account_params[:email])
 
-    RodauthApp.rodauth.create_account(login: "user@example.com", password: "secret123", full_name: "John Doe", birth_date: "1990-01-01", permament_address: "123 Main St", phone: "123-456-7890", member_code: "123456")
-
-    # if account.save
-    #   render json: { status: 'success', message: 'Account created', data: account }, status: :created
-    # else
-    #   render json: { status: 'error', message: account.errors.full_messages }, status: :unprocessable_entity
-    # end
+    account = Account.find_by(email: account_params[:email])
+    if account.update(account_params.except(:email))
+      render json: { status: 'success', message: 'Account created', data: account }, status: :ok
+    else
+      render json: { status: 'error', message: account.errors.full_messages }, status: :unprocessable_entity
+    end
   end
 
   # /api/accounts/:id
@@ -51,6 +50,6 @@ class Api::AccountsController < ApplicationController
   end
 
   def account_params
-    params.require(:account).permit(:email, :password, :full_name, :birth_date, :permament_address, :phone, :member_code)
+    params.require(:account).permit(:email, :full_name, :birth_date, :permament_address, :phone, :member_code)
   end
 end
