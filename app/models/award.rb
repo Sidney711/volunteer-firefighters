@@ -28,8 +28,6 @@ class Award < ApplicationRecord
     end
   end
 
-  private
-
   def validate_dependent_award_exists
     unless Award.exists?(dependent_award_id)
       errors.add(:dependent_award_id, 'does not exist')

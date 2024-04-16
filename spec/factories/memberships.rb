@@ -1,9 +1,10 @@
+# spec/factories/memberships.rb
 FactoryBot.define do
   factory :membership do
-    start_date { "2024-04-02" }
-    fire_department { nil }
-    account { nil }
-    role { 1 }
-    status { 1 }
+    association :fire_department
+    association :account
+    start_date { Date.today }
+    role { "member" }
+    status { "active" }
   end
 end
