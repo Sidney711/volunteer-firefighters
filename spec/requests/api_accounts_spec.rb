@@ -68,4 +68,34 @@ RSpec.describe "AccountsController", type: :request do
       end
     end
   end
+
+  describe "GET /api/accounts/:id/awards" do
+    let(:account) { Account.create(valid_attributes[:account]) }
+
+    context "with valid token" do
+      it "returns the account's awards" do
+        get "/api/accounts/#{account.id}/awards", headers: auth_headers(valid_token)
+
+        expect(response).to have_http_status(:ok)
+        expect(response.body).to include("success")
+      end
+    end
+
+    context "with invalid token" do
+      it "does not authorize the request" do
+        get "/api/accounts/#{account.id}/awards", headers: auth_headers(invalid_token)
+
+        expect(response).to have_http_status(:unauthorized)
+      end
+    end
+
+    context "when account does not exist" do
+      it "returns 'Account not found' message" do
+        get "/api/accounts/9999/awards", headers: auth_headers(valid_token)
+
+        expect(response).to have_http_status(:not_found)
+        expect(response.body).to include("Account not found")
+      end
+    end
+  end
 end
