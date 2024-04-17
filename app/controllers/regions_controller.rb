@@ -1,6 +1,11 @@
 class RegionsController < ApplicationController
   load_and_authorize_resource
 
+  def index
+    @q = Region.accessible_by(current_ability).ransack(params[:q])
+    @regions = @q.result(distinct: true)
+  end
+
   # GET /regions/new
   def new
     @region = Region.new

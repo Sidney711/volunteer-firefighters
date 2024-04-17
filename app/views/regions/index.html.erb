@@ -6,12 +6,20 @@
     <p class="py-2 px-3 bg-red-50 mb-5 text-red-500 font-medium rounded-lg inline-block" id="alert"><%= alert %></p>
   <% end %>
 
-  <div class="flex justify-between items-center">
+  <div class="flex justify-between items-center mb-5">
     <h1 class="font-bold text-4xl">Regions</h1>
     <% if can? :create, Region %>
       <%= link_to "New region", new_region_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
     <% end %>
   </div>
+
+  <%= search_form_for @q do |f| %>
+    <%= f.label :name_cont, 'Search by Region Name' %>
+    <%= f.search_field :name_cont %>
+
+    <%= f.submit 'Search', class: 'rounded-lg py-2 px-5 bg-blue-600 text-white cursor-pointer' %>
+  <% end %>
+
 
   <div id="regions" class="min-w-full">
     <%= render @regions %>

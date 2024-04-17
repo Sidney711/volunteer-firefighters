@@ -1,6 +1,11 @@
 class DistrictsController < ApplicationController
   load_and_authorize_resource
 
+  def index
+    @q = District.accessible_by(current_ability).ransack(params[:q])
+    @districts = @q.result(distinct: true)
+  end
+
   # GET /districts/new
   def new
     @district = District.new

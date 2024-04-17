@@ -1,6 +1,11 @@
 class AwardsController < ApplicationController
   load_and_authorize_resource
 
+  def index
+    @q = Award.accessible_by(current_ability).ransack(params[:q])
+    @awards = @q.result(distinct: true)
+  end
+
   # GET /awards/new
   def new
     @award = Award.new

@@ -1,6 +1,11 @@
 class FireDepartmentsController < ApplicationController
   load_and_authorize_resource
 
+  def index
+    @q = FireDepartment.accessible_by(current_ability).ransack(params[:q])
+    @fire_departments = @q.result(distinct: true)
+  end
+
   # GET /fire_departments/new
   def new
     @fire_department = FireDepartment.new

@@ -7,12 +7,19 @@
   <% end %>
 
 
-  <div class="flex justify-between items-center">
+  <div class="flex justify-between items-center mb-5">
     <h1 class="font-bold text-4xl">Fire departments</h1>
     <% if can? :create, Region %>
     <%= link_to "New fire department", new_fire_department_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
     <% end %>
   </div>
+
+  <%= search_form_for @q do |f| %>
+    <%= f.label :name_cont, 'Search by Fire department' %>
+    <%= f.search_field :name_cont %>
+
+    <%= f.submit 'Search', class: 'rounded-lg py-2 px-5 bg-blue-600 text-white cursor-pointer' %>
+  <% end %>
 
   <div id="fire_departments" class="min-w-full">
     <%= render @fire_departments %>
