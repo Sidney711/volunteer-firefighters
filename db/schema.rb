@@ -18,6 +18,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_02_152637) do
   create_table "account_awards", force: :cascade do |t|
     t.bigint "account_id", null: false
     t.bigint "award_id", null: false
+    t.datetime "scheduled_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["account_id"], name: "index_account_awards_on_account_id"
