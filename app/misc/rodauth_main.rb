@@ -213,6 +213,13 @@ class RodauthMain < Rodauth::Rails::Auth
     after_create_account do
       super()
 
+      account = Account.find_by(email: request.params["email"])  # Předpokládá, že email je unikátní identifikátor.
+
+      ActionCable.server.broadcast('accounts', {
+        action: 'create',
+        account: account.as_json(include: [:awards, :fire_departments])
+      })
+
       request.redirect '/members'
     end
 

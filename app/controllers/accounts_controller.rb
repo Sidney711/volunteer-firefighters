@@ -1,5 +1,6 @@
 class AccountsController < ApplicationController
   load_and_authorize_resource
+  after_action :broadcast_account, only: [:create, :update, :destroy]
 
   def index
     @q = Account.accessible_by(current_ability).includes(:fire_departments, :awards).ransack(params[:q])
@@ -26,6 +27,7 @@ class AccountsController < ApplicationController
     )
 
     if updater.call
+      broadcast_account
       redirect_to @account, notice: 'Account was successfully updated.'
     else
       render :edit, alert: 'Account was not updated.'
@@ -46,4 +48,23 @@ class AccountsController < ApplicationController
   def account_awards_params
     params.require(:account).permit(account_awards_attributes: [:id, :award_id, :_destroy, :scheduled_at])
   end
+
+  def broadcast_account
+    ActionCable.server.broadcast('accounts', {
+      action: action_name,
+      account: @account.as_json(include: {
+        fire_departments: {
+          include: {
+            memberships: {
+              include: :fire_department  # Přidáno pro lepší strukturování a zobrazení informací
+            }
+          }
+        },
+        awards: {
+        }
+      })
+    })
+  end
+
+
 end
