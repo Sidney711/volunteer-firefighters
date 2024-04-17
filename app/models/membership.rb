@@ -10,6 +10,14 @@ class Membership < ApplicationRecord
   validates :status, presence: true, inclusion: { in: statuses.keys }
   validate :one_active_membership_per_user
 
+  def self.ransackable_attributes(auth_object = nil)
+    %w[start_date role status account_id fire_department_id]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    %w[account fire_department]
+  end
+
   private
 
   def one_active_membership_per_user

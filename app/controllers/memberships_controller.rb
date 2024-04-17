@@ -1,6 +1,11 @@
 class MembershipsController < ApplicationController
   load_and_authorize_resource
 
+  def index
+    @q = Membership.accessible_by(current_ability).ransack(params[:q])
+    @memberships = @q.result.includes(:account, :fire_department).distinct
+  end
+
   # GET /memberships/new
   def new
     @membership = Membership.new
