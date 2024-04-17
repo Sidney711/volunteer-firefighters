@@ -18,7 +18,16 @@ class Api::AccountsController < ApplicationController
     rescue
       render json: { status: 'error', message: 'There was an error with creating account.' }, status: :unprocessable_entity
     end
+  end
 
+  # Get all awards from the one account
+  def awards
+    account = Account.find_by(id: params[:id])
+    if account.nil?
+      render json: { status: 'error', message: 'Account not found' }, status: :not_found
+    else
+      render json: { status: 'success', data: account.awards }, status: :ok
+    end
   end
 
   # /api/accounts/:id
