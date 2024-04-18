@@ -1,24 +1,44 @@
-# README
+# Aplikace pro sdružení dobrovolných hasičů ČR - semestrální projekt Ruby On Rails II
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Úvod
 
-Things you may want to cover:
+Aplikace splňuje minimální požadavky zadání a všechny premisy, které mají v aplikaci platit.
 
-* Ruby version
+Co se týče běžných uživatelů, tak ti nemají možnost se přihlásit, správci a super admini ano.
 
-* System dependencies
+## Domácí úloha
 
-* Configuration
+1. Projekt bude obsahovat tabulky pro jednotlivé entity, bude mít definované relace
+   mezi nimi a validace [4 bodů] - **splněno** ✅ (migrace se nachází v `db/migrate` a modely s relacemi a validacemi v `app/models`)
+2. V aplikaci budou dostupné API endpointy, přístupné přes Api-Klíč [4 bodů] - **splněno** ✅
+   - endpoint pro výpis SDH - **splněno** ✅ (nachází se v `app/controllers/api/v1/firefighters_controller.rb`)
+   - endpoint pro vytvoření/úpravu/smazání člena - **splněno** ✅ (nachází se v `app/controllers/api/v1/accounts_controller.rb`)
+3. Jednotlivé entity budou mít napsané testy - **splněno** ✅
+   - validace, asociace [2 bodů] - **splněno** ✅ (testy se nachází v `spec/models`)
+   - API endpointy [2 bodů] - **splněno** ✅ (testy se nachází v `spec/requests`)
 
-* Database creation
+## Semestrální projekt
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+1. Prezentace + odprezentování projektu. Prezentace je povinná [7 bodů] - **bude následovat ❓** 
+2. Projekt bude obsahovat UI pro zadávání/editaci a mazání jednotlivých údajů do
+   čísleníků [5 bodů] - **splněno** ✅ (splněno ve všech views v `app/views`)
+3. Číselníky budou umožňovat filtrování dat [3 bodů] - **splněno** ✅ (splněno v každém index souboru ve views v `app/views` a v controllerech entit v index metodách v `app/controllers`)
+4. Aplikace bude obsahovat seed.rb soubor, pro předvyplnění číselníků nějakými
+   vzorovými daty [3 bodů] - **splněno** ✅ (seed se nachází v `db/seeds.rb`)
+5. Použití ActiveJob na odložené přiřazení ocenění členovi [4 bodů] - **splněno** ✅
+   - job se nachází v `app/jobs/assign_award_job.rb`
+   - v service `app/services/account_service.rb` je metoda `update_account_awards`, která vytváří nový job v případě přidání ocenění s odloženým spuštěním (metoda je trochu specifičtější kvůli použití nested form, v případě nejasností můžu vyvsětlit osobně při prezentaci)
+6. Aplikace využije cachovací mechanismus [2 bodů] - **splněno** ✅
+   - cachování jsem aplikoval ve view indexu district (v `app/views/districts/index.html.erb`, řádky 22 a 23)
+7. Aplikace bude obsahovat Service objekt - **splněno** ✅
+   - definování Service objektu a jeho použití [3 bodů] - **splněno** ✅ (service objekt se nachází v `app/services/account_service.rb` a je použit v `app/controllers/accounts_controller.rb` převážně za účely bodu 5)
+   - testy na Service objekt [2 bodů] - **splněno** ✅ (testy se nachází v `spec/services`)
+8. API endpoint pro výpis získaných ocenění konkrétního člena - **splněno** ✅
+   - endpoint [2 bodů] - **splněno** ✅ (nachází se v `app/controllers/api/v1/accounts_controller.rb` v metodě `awards`)
+   - testy [1 bodů] - **splněno** ✅ (testy se nachází v `spec/requests/api/v1/api_accounts_spec.rb`)
+9. Využití hotwire v aplikaci a stimulus v aplikaci
+   - ukázka využití hotwire alespoň na jedné stránce (např. formulář + výpis) [4
+   bodů] - **nesplněno** ❌ (neměl jsem už nápad, kde hotwire využít mimo websocket a stimulus, buď jsem něco zkusil a rozbíjelo to aktuální funkcionality nebo to nebylo vhodné použít)
+   - aplikace využije websocketů k live aktualizaci dat při přidání/úpravě/smazání
+   (alespoň na jedné stránce) [4 bodů] - **splněno** ✅ (websocket jsem použil pro zobrazení členů, konfigurace se nachází v `app/channels/accounts_channel.rb` a využití v `app/javascript/channels/accounts_channel.js`, celé využití je v `app/views/accounts/index.html.erb`)
+   - využití stimulus controlleru [2 bodů] - **splněno** ✅ (stimulus používám pro nested form při aktualizaci uživatele, kde mu lze přidat ocenění nested form jsem importoval v `app/javascript/controllers/index.js` a používám v `app/views/accounts/_form.html.erb`(60 až 72 řádek) + view `app/views/accounts/_account_award_fields.html.erb` pro každé ocenění)
