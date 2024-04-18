@@ -6,16 +6,13 @@ class RegionsController < ApplicationController
     @regions = @q.result(distinct: true)
   end
 
-  # GET /regions/new
   def new
     @region = Region.new
   end
 
-  # GET /regions/1/edit
   def edit
   end
 
-  # POST /regions
   def create
     @region = Region.new(region_params)
 
@@ -26,7 +23,6 @@ class RegionsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /regions/1
   def update
     if @region.update(region_params)
       redirect_to @region, notice: "Region was successfully updated.", status: :see_other
@@ -35,7 +31,6 @@ class RegionsController < ApplicationController
     end
   end
 
-  # DELETE /regions/1
   def destroy
     begin
       @region.destroy!
@@ -46,12 +41,10 @@ class RegionsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_region
       @region = Region.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def region_params
       params.require(:region).permit(:name, :code)
     end

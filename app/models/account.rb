@@ -17,7 +17,7 @@ class Account < ApplicationRecord
   validates :member_code, presence: true, length: { maximum: 50 }, uniqueness: true
 
   def self.ransackable_attributes(auth_object = nil)
-    %w[full_name fire_departments_id_eq awards_id_eq] # your attributes here
+    %w[full_name fire_departments_id_eq awards_id_eq]
   end
 
   def self.ransackable_associations(auth_object = nil)
@@ -51,7 +51,7 @@ class Account < ApplicationRecord
 
   def eligible_awards
     Award.where("minimum_service_years <= ? AND minimum_age <= ?", membership_duration_years, age)
-         .where.not(id: self.awards.select(:id)) # Vyfiltruje vyznamenání, která účet již má
+         .where.not(id: self.awards.select(:id))
          .select do |award|
       award.dependent_award.nil? || self.awards.include?(award.dependent_award)
     end

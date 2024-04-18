@@ -13,7 +13,6 @@
       <%= link_to "Awards", awards_path, class: "p-3 hover:bg-gray-50 transition ease duration-300 rounded-lg text-center focus:bg-gray-100 lg:inline-block block" %>
       <%= link_to "Districts", districts_path, class: "p-3 hover:bg-gray-50 transition ease duration-300 rounded-lg text-center focus:bg-gray-100 lg:inline-block block" %>
       <%= link_to "Regions", regions_path, class: "p-3 hover:bg-gray-50 transition ease duration-300 rounded-lg text-center focus:bg-gray-100 lg:inline-block block" %>
-      <!-- Uživatelské menu -->
       <div class="relative">
         <button class="flex items-center p-3 hover:bg-gray-50 transition ease duration-300 rounded-lg focus:bg-gray-100">
           <%= current_account.email %>
@@ -29,7 +28,6 @@
               <%= form.hidden_field rodauth.global_logout_param, value: '1' %>
             <% end %>
           <% end %>
-
         </div>
       </div>
     </div>
@@ -37,7 +35,6 @@
 </nav>
 
 <script>
-    // Přidáváme jednoduchý JavaScript pro otevření/zavření dropdown menu
     document.addEventListener('click', function (e) {
         var button = e.target.closest('button');
         if (!button) return;

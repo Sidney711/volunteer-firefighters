@@ -2,7 +2,7 @@
 require 'rails_helper'
 
 RSpec.describe "AccountsController", type: :request do
-  let(:valid_token) { "secret" }
+  let(:valid_token) { ENV['API_TOKEN'] }
   let(:invalid_token) { "invalid" }
   let(:valid_attributes) { { account: { email: "userxx@example.com", full_name: "John Doe", birth_date: "1990-01-01", permament_address: "123 Example St", phone: "1234567890", member_code: "ABC123xx" } } }
   let(:invalid_attributes) { { account: { email: "" } } }

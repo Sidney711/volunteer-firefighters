@@ -79,7 +79,6 @@
     </div>
   <% end %>
 
-  <%# Zobrazit odkazy na akce, pokud nejste na stránce show %>
   <% if action_name != "show" %>
     <%= link_to "Show this member", account, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
     <%= link_to "Edit this member", edit_account_path(account), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>

@@ -56,7 +56,7 @@ class AccountsController < ApplicationController
         fire_departments: {
           include: {
             memberships: {
-              include: :fire_department  # Přidáno pro lepší strukturování a zobrazení informací
+              include: :fire_department
             }
           }
         },
@@ -65,6 +65,4 @@ class AccountsController < ApplicationController
       })
     })
   end
-
-
 end

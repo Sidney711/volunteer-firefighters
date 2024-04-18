@@ -6,16 +6,13 @@ class DistrictsController < ApplicationController
     @districts = @q.result(distinct: true)
   end
 
-  # GET /districts/new
   def new
     @district = District.new
   end
 
-  # GET /districts/1/edit
   def edit
   end
 
-  # POST /districts
   def create
     @district = District.new(district_params)
 
@@ -26,7 +23,6 @@ class DistrictsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /districts/1
   def update
     if @district.update(district_params)
       redirect_to @district, notice: "District was successfully updated.", status: :see_other
@@ -45,12 +41,10 @@ class DistrictsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_district
       @district = District.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def district_params
       params.require(:district).permit(:name, :code, :region_id)
     end

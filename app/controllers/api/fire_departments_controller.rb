@@ -1,5 +1,5 @@
 class Api::FireDepartmentsController < ApplicationController
-  TOKEN = "secret"
+  TOKEN = ENV['API_TOKEN']
 
   before_action :authenticate_token
 

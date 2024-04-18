@@ -6,16 +6,13 @@ class AwardsController < ApplicationController
     @awards = @q.result(distinct: true)
   end
 
-  # GET /awards/new
   def new
     @award = Award.new
   end
 
-  # GET /awards/1/edit
   def edit
   end
 
-  # POST /awards
   def create
     @award = Award.new(award_params)
 
@@ -26,7 +23,6 @@ class AwardsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /awards/1
   def update
     if @award.update(award_params)
       redirect_to @award, notice: "Award was successfully updated.", status: :see_other
@@ -45,12 +41,10 @@ class AwardsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_award
       @award = Award.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def award_params
       params.require(:award).permit(:name, :award_type, :image, :dependent_award_id, :minimum_service_years, :minimum_age)
     end

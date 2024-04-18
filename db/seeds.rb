@@ -163,7 +163,6 @@ accounts = Account.all
 awards = Award.all
 
 accounts.each do |account|
-  # Select awards that the account is eligible for
   eligible_awards = awards.select do |award|
     next false if award.minimum_age > 0 && account.age < award.minimum_age
     next false if award.minimum_service_years > 0 && account.membership_duration_years < award.minimum_service_years
@@ -171,7 +170,6 @@ accounts.each do |account|
     true
   end
 
-  # Assign one or more awards to the account
   eligible_awards.sample(rand(0..2)).each do |award|
     AccountAward.create!(account: account, award: award)
   end

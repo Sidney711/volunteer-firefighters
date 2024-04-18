@@ -11,11 +11,9 @@ class FireDepartmentsController < ApplicationController
     @fire_department = FireDepartment.new
   end
 
-  # GET /fire_departments/1/edit
   def edit
   end
 
-  # POST /fire_departments
   def create
     @fire_department = FireDepartment.new(fire_department_params)
 
@@ -26,7 +24,6 @@ class FireDepartmentsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /fire_departments/1
   def update
     if @fire_department.update(fire_department_params)
       redirect_to @fire_department, notice: "Fire department was successfully updated.", status: :see_other
@@ -45,12 +42,10 @@ class FireDepartmentsController < ApplicationController
   end
 
   private
-  # Use callbacks to share common setup or constraints between actions.
   def set_fire_department
     @fire_department = FireDepartment.find(params[:id])
   end
 
-  # Only allow a list of trusted parameters through.
   def fire_department_params
     params.require(:fire_department).permit(:name, :code, :district_id, :address)
   end
