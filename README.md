@@ -6,6 +6,14 @@ Aplikace splňuje minimální požadavky zadání a všechny premisy, které maj
 
 Co se týče běžných uživatelů, tak ti nemají možnost se přihlásit, správci a super admini ano.
 
+## Spuštění aplikace
+1. Vytvořit .env file podle .env-example
+2. Spustit docker-compose build
+3. Spustit docker-compose up
+4. Spustit ./db-recreate.sh (spustí migrace, seed)
+5. V aplikaci mají všichni uživatelé ze seedu heslo password123
+6. V aplikaci se po seedu nachází uživatel superadmin@example.com s heslem password123
+
 ## Domácí úloha
 
 1. Projekt bude obsahovat tabulky pro jednotlivé entity, bude mít definované relace
