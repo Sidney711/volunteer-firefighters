@@ -11,8 +11,10 @@ Co se týče běžných uživatelů, tak ti nemají možnost se přihlásit, spr
 2. Spustit docker-compose build
 3. Spustit docker-compose up
 4. Spustit ./db-recreate.sh (spustí migrace, seed)
-5. V aplikaci mají všichni uživatelé ze seedu heslo password123
-6. V aplikaci se po seedu nachází uživatel superadmin@example.com s heslem password123
+5. Spustit ./run-tailwindcss.sh (spustí tailwindcss)
+6. Spustit ./linux_rails.sh rails dev:cache (spustí cache v developmentu)
+7. V aplikaci mají všichni uživatelé ze seedu heslo password123
+8. V aplikaci se po seedu nachází uživatel superadmin@example.com s heslem password123
 
 ## Domácí úloha
 
