@@ -1,4 +1,4 @@
-FROM ruby:3.3-bookworm
+FROM ruby:3.3.0-bookworm
 
 RUN apt-get update -qq && apt-get install -y postgresql-client
 
